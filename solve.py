@@ -24,7 +24,7 @@ def solve(args, coding):
         result += '\n' + str(prob) + '\t' + bin + '\t' + str(length)
 
     for k, v in answer.items():
-        result += ('\n' + k + ':' + str(v)) if k not in ['idx_to_bin', 'idx_to_len'] else ''
+        result += ('\n' + k + ': ' + str(v)) if k not in ['idx_to_bin', 'idx_to_len'] else ''
 
     return result
 

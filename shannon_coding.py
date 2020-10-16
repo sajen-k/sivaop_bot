@@ -20,6 +20,7 @@ if __name__ == '__main__':
     probs = list(map(float, probs.split()))
     answer = shannon(probs)
 
+    answer['idx_to_len'] = {k: len(v) for k,v in answer['idx_to_bin'].items()}
     answer['Entropy'] = entropy(probs)
     answer['Average length'] = Lavg(probabilities=probs, lengths=answer['idx_to_len'].values())
     answer['Efficiency'], answer['Redundancy'] = efficiency_redundancy(answer['Entropy'], answer['Average length'])
