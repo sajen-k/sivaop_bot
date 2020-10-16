@@ -12,9 +12,9 @@ def separate(values, probs_to_bin, rel_idx=0):
         s2 = sum(values[a:])
         idx_to_diff[a] = abs(s1-s2)
     idx = sorted(idx_to_diff.items(), key=lambda item: item[1])[0][0] + rel_idx
-    #print(rel_idx, idx)
+
     add_bin(probs_to_bin, rel_idx, idx, '0')
     add_bin(probs_to_bin, idx, len(values) + rel_idx, '1')
-    #print(probs_to_bin)
+    
     separate(values[:idx - rel_idx], probs_to_bin, rel_idx)
     separate(values[idx - rel_idx:], probs_to_bin, idx)
