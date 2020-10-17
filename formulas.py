@@ -9,11 +9,9 @@ def information(p):
 def Lavg(*, probabilities, lengths):
 	return sum([i*j for i,j in zip(probabilities, lengths)])
 
-def efficiency(entropy_h, lavg):
-	return entropy_h/lavg
-
-def redundancy(efficiency):
-	return 1 - efficiency
+def efficiency_redundancy(entropy_h, lavg):
+	eff = entropy_h/lavg
+	return eff, 1 - eff
 
 def code_variance(*, probs, lengths, lavg):
 	return sum([p * (l - lavg)**2 for p, l in zip(probs, lengths)])

@@ -1,6 +1,7 @@
 from discord.ext import commands
-from shannon_coding import shannon_coding
+from shannon_coding import shannon
 from formulas import *
+from solve import solve
 
 bot = commands.Bot(command_prefix='+')
 TOKEN = ''
@@ -41,16 +42,6 @@ async def s(ctx, *, args):
         await ctx.message.delete()
         await ctx.send(args)
 
-@bot.command(rest_is_raw=True)
-async def shannon(ctx, *, args):
-    probabilities = list(map(float, args.split()))
-    answer = shannon_coding(probabilities)
-    s = ''
-    for prob, bin, length in zip(probabilities, answer['idx_to_bin'].values(), answer['idx_to_len'].values()):
-        s += str(prob) + '\t' + bin + '\t' + str(length) + '\n'
-    await ctx.send(s)
-    await ctx.send(f"Entropy: {answer['H']}\nAverage length: {answer['lavg']}\nEfficiency: {answer['eff']}\nRedundancy: {answer['red']}\nCode Variance: {answer['cv']}")
-
 @bot.command(rest_is_raw=True, name='information')
 async def info(ctx, *, args):
     args = args.split()
@@ -63,5 +54,18 @@ async def info(ctx, *, args):
 async def e(ctx, *, args):
     probabilities = list(map(float, args.split()))
     await ctx.send(entropy(probabilities))
+
+@bot.command(rest_is_raw=True, name='shannon')
+async def shan(ctx, *, args):
+    result = solve(args, shannon)
+    await ctx.send(result)
+
+"""
+@bot.command(rest_is_raw=True)
+async def huffman(ctx, *, args):
+    result = solve(args, huffman_coding)
+    ctx.send(result)
+"""
+
         
 bot.run(TOKEN)
